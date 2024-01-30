@@ -221,20 +221,25 @@ class Cohort:
         self.students = []
     
     def add_student(self, student):
-        self.student = {}
-        self.students.append = self.student() #add student dict to list of students
-        
-    def list_student(self):
+        self.students.append(student)  
+
+    def list_students(self):  
         return self.students 
     
     def list_employed_by(self, employer):
-        self.employer = employer 
         employed_students = []
         for student in self.students:
-            if employer["employer"] == self.students:  
-                employed_students.append(employer)
-        return 
+            if student["employer"] == employer:  
+                employed_students.append(student)
+        return employed_students  
 
+# Testing the class
+cohort = Cohort()
+cohort.add_student({'name' : 'Jo', 'employer' : 'NASA'})
+cohort.add_student({'name' : 'Alex', 'employer' : 'NASA'})
+cohort.add_student({'name' : 'Bobby', 'employer' : 'Google'})
+print(cohort.list_students())
+print(cohort.list_employed_by('NASA'))
 
 
 
@@ -271,5 +276,46 @@ class Cohort:
 #   '10 South Street'
 #   > person.get_pets()
 #   'Alex has 3 pets: a cat called Arthur, a dog called Judith, a goldfish called Gwen'
+class Person:
+    def __init__(self, info):
+        self.name = info['name']
+        self.pets = info['pets']
+        self.addresses = info['addresses']
+
+    def get_work_address(self):
+        for address in self.addresses:
+            if address['name'] == 'work':
+                return f"{address['building']} {address['street']}"
+        return "Work address not found."
+
+    def get_home_address(self):
+        for address in self.addresses:
+            if address['name'] == 'home':
+                return f"{address['building']} {address['street']}"
+        return "Home address not found."
+
+    def get_pets(self):
+        pet_descriptions = [f"a {pet['animal']} called {pet['name']}" for pet in self.pets]
+        pet_list = ', '.join(pet_descriptions)
+        return f"{self.name} has {len(self.pets)} pets: {pet_list}"
+
+# Testing the class
+person_info = {
+    'name': 'Alex',
+    'pets': [
+        {'name': 'Arthur', 'animal': 'cat'},
+        {'name': 'Judith', 'animal': 'dog'},
+        {'name': 'Gwen', 'animal': 'goldfish'}
+    ],
+    'addresses': [
+        {'name': 'work', 'building': '50', 'street': 'Commercial Street'},
+        {'name': 'home', 'building': '10', 'street': 'South Street'}
+    ]
+}
+
+person = Person(person_info)
+print(person.get_work_address())  
+print(person.get_home_address()) 
+print(person.get_pets())  
 
 
